@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "24711817018",
+    "project_id": "amonguscards-8e42a",
+    "storage_bucket": "amonguscards-8e42a.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24711817018:android:c2ca3af729fa7b38ad1203",
+        "android_client_info": {
+          "package_name": "com.example.amongus_cards"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAOzxPsdIuSGy51iiaNQbqmD0sfOZGLj_A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
