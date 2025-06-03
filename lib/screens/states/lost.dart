@@ -1,11 +1,16 @@
+import 'package:amongus_cards/functions/route.dart';
+import 'package:amongus_cards/screens/home.dart';
+import 'package:amongus_cards/screens/local/turns.dart';
 import 'package:amongus_cards/widgets/bg.dart';
 import 'package:amongus_cards/widgets/btn.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class Lost extends StatefulWidget {
-  const Lost({super.key, this.killers});
+  const Lost({super.key, this.killers, this.players, this.killerscount});
   final List? killers;
+  final List<String>? players;
+  final int? killerscount;
 
   @override
   State<Lost> createState() => _LostState();
@@ -40,16 +45,35 @@ class _LostState extends State<Lost> {
             children: [
               Text(
                 lang == "ar" ? "اوه لا: لقد خسرنا" : 'Oh no! We lost!',
-                style: TextStyle(fontSize: 32,color: Colors.white),
+                style: TextStyle(fontSize: 32, color: Colors.white),
               ),
               if (widget.killers != null)
-                ...widget.killers!.map((killer) => Text(killer, style: TextStyle(color: Colors.white, fontSize: 30),)).toList(),
+                ...widget.killers!
+                    .map(
+                      (killer) => Text(
+                        killer,
+                        style: TextStyle(color: Colors.white, fontSize: 30),
+                      ),
+                    )
+                    .toList(),
               const SizedBox(height: 20),
+              Btn(
+                text: lang == "ar" ? "إعاده اللعب" : "Replay",
+                function: () {
+                  List<String> players = widget.players!;
+                  players.shuffle();
+                  CustomRoute.push(
+                    context,
+                    Turns(players: players, countkillers: widget.killerscount),
+                  );
+                },
+                enabled: true,
+              ),
               Btn(
                 text:
                     lang == "ar" ? "الرجوع الي الشاشة الرئيسة" : "Back to Home",
                 function: () {
-                  Navigator.pushReplacementNamed(context, "/home");
+                  CustomRoute.push(context, Home());
                 },
                 enabled: true,
               ),

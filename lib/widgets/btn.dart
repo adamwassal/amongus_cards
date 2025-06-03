@@ -15,8 +15,8 @@ class Btn extends StatelessWidget {
         
         onPressed: function,
         style: ButtonStyle(
-          backgroundColor: enabled!? MaterialStateProperty.all<Color>(Color(0xffB0B0B0)):MaterialStateProperty.all<Color>(Color.fromARGB(255, 96, 96, 96)),
-          foregroundColor: MaterialStateProperty.all<Color>(Color(0xff000000)),
+          backgroundColor: enabled!? MaterialStateProperty.all<Color>(Color.fromARGB(255, 57, 57, 57)):MaterialStateProperty.all<Color>(Color.fromARGB(255, 28, 28, 28)),
+          foregroundColor: MaterialStateProperty.all<Color>(Color.fromARGB(255, 255, 255, 255)),
           padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(20)),
           
           

@@ -1,5 +1,9 @@
 import 'dart:async';
+import 'package:amongus_cards/functions/route.dart';
+import 'package:amongus_cards/functions/warning.dart';
+import 'package:amongus_cards/screens/home.dart';
 import 'package:amongus_cards/screens/states/lost.dart';
+import 'package:amongus_cards/screens/states/win.dart';
 import 'package:amongus_cards/widgets/bg.dart';
 import 'package:amongus_cards/widgets/btn.dart';
 import 'package:amongus_cards/widgets/logo.dart';
@@ -31,6 +35,8 @@ class _GameState extends State<Game> {
   bool _isMeetingActive = true;
   final storage = FlutterSecureStorage();
   final player = AudioPlayer();
+  int killerscount = 0;
+  int friendscount = 0;
 
   String? lang;
 
@@ -45,6 +51,10 @@ class _GameState extends State<Game> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    setState(() {
+      killerscount = widget.killers.length;
+      friendscount = widget.friends.length;
+    });
     _initializePreferences();
   }
 
@@ -74,17 +84,30 @@ class _GameState extends State<Game> {
   }
 
   void _checkGameOver() {
-    if (widget.killers.isEmpty || widget.killers.length == 0) {
-      Navigator.pushReplacementNamed(context, "/win");
-    } else if (widget.killers.length >= widget.friends.length) {
-      Navigator.pushReplacement(
+    if (killerscount == 0) {
+      CustomRoute.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => Lost(killers: widget.killers)),
+        Win(
+          killerscount: widget.killers.length,
+          players: [...widget.killers, ...widget.friends],
+        ),
+        transition: TransitionType.rotation
+      );
+    } else if (killerscount! >= friendscount) {
+      CustomRoute.pushReplacement(
+        context,
+        Lost(
+          killers: widget.killers,
+          killerscount: widget.killers.length,
+          players: [...widget.killers, ...widget.friends],
+        ),
+        transition: TransitionType.rotation
       );
     }
   }
 
   void _callEmergencyMeeting() async {
+    _checkGameOver();
     await player.setAsset("assets/audios/emergency.mp3");
     player.play();
     print("emergency");
@@ -93,17 +116,23 @@ class _GameState extends State<Game> {
       context: context,
       builder:
           (context) => AlertDialog(
+            backgroundColor: Colors.black,
+
             title: Column(
               children: [
                 Image.asset("assets/images/emergency.jpeg"),
-                Text(lang == "ar" ? "اجتماع الطوارئ" : "Emergency Meeting")
+                Text(
+                  lang == "ar" ? "اجتماع الطوارئ" : "Emergency Meeting",
+                  style: TextStyle(color: Colors.white),
+                ),
               ],
             ),
             content: Text(
               lang == "ar"
                   ? "جاري تنفيذ الاجتماع ..."
                   : "You have called an emergency meeting!",
-                  textAlign: TextAlign.center,
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.white),
             ),
             actions: [
               TextButton(
@@ -112,7 +141,8 @@ class _GameState extends State<Game> {
                   startTimer();
                   _checkGameOver();
                 },
-                child: Text(lang == "ar" ? "انهاء الإجتماع" : "Finish Meeting"),
+                child: Text(lang == "ar" ? "انهاء الإجتماع" : "Finish Meeting", 
+                    style: TextStyle(color: Colors.green, fontSize: 20)),
               ),
               TextButton(
                 onPressed: () {
@@ -120,7 +150,7 @@ class _GameState extends State<Game> {
                   _showFirePlayerDialog();
                   _checkGameOver();
                 },
-                child: Text(lang == "ar" ? "طرد لاعب" : "Fire Player"),
+                child: Text(lang == "ar" ? "طرد لاعب" : "Fire Player",style: TextStyle(color: Colors.red, fontSize: 20)),
               ),
             ],
           ),
@@ -132,78 +162,91 @@ class _GameState extends State<Game> {
       barrierDismissible: false,
       context: context,
       builder:
-          (context) => AlertDialog(
-            title: Text(lang == "ar" ? "طرد لاعب" : "Fire Player"),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  lang == "ar"
-                      ? "اختر اللاعب الذي سيطرد"
-                      : "Select a player to fire:",
+          (context) => StatefulBuilder(
+            builder: (BuildContext context, StateSetter setState) {
+              return AlertDialog(
+                backgroundColor: Colors.black,
+
+                title: Text(
+                  lang == "ar" ? "طرد لاعب" : "Fire Player",
+                  style: TextStyle(color: Colors.white),
                 ),
-                const SizedBox(height: 20),
-                DropdownButton<String>(
-                  value: _selectedPlayerToFire,
-                  items:
-                      widget.players.map((String player) {
-                        return DropdownMenuItem<String>(
-                          value: player,
-                          child: Text(player),
-                        );
-                      }).toList(),
-                  onChanged: (String? newValue) {
-                    setState(() => _selectedPlayerToFire = newValue);
-                  },
-                  hint: Text(_selectedPlayerToFire ?? "Select player"),
+                content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      lang == "ar"
+                          ? "اختر اللاعب الذي سيطرد"
+                          : "Select a player to fire:",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    const SizedBox(height: 20),
+                    DropdownButton<String>(
+                      dropdownColor: Colors.black,
+
+                      value: _selectedPlayerToFire,
+                      items:
+                          widget.players.map((String player) {
+                            return DropdownMenuItem<String>(
+                              value: player,
+                              child: Text(
+                                player,
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            );
+                          }).toList(),
+                      onChanged: (String? newValue) {
+                        setState(() => _selectedPlayerToFire = newValue);
+                      },
+                      hint: Text(
+                        _selectedPlayerToFire ?? "Select player",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-            actions: [
-              TextButton(
-                onPressed: () async {
-                  if (_selectedPlayerToFire != null) {
-                    await player.setAsset("assets/audios/bye.mp3");
-                    player.play();
-                    print("emergency");
-                    setState(() {
-                      if (widget.killers.contains(_selectedPlayerToFire!)) {
-                        widget.killers.remove(_selectedPlayerToFire!);
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(
-                              lang == "ar"
-                                  ? "$_selectedPlayerToFire هو القاتل!"
-                                  : "$_selectedPlayerToFire was a killer!",
-                              style: const TextStyle(fontSize: 20),
-                            ),
-                          ),
-                        );
-                      } else {
-                        widget.friends.remove(_selectedPlayerToFire!);
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(
-                              lang == "ar"
-                                  ? "$_selectedPlayerToFire كان صديق!!"
-                                  : "$_selectedPlayerToFire was a friend!",
-                              style: const TextStyle(fontSize: 20),
-                            ),
-                          ),
-                        );
+                actions: [
+                  TextButton(
+                    onPressed: () async {
+                      if (_selectedPlayerToFire != null) {
+                        await player.setAsset("assets/audios/bye.mp3");
+                        player.play();
+                        print("emergency");
+                        setState(() {
+                          if (widget.killers.contains(_selectedPlayerToFire!)) {
+                            setState(() {
+                              killerscount--;
+                            });
+                            Warning.showWarningDialog(
+                              context,
+                              "$_selectedPlayerToFire هو القاتل!",
+                              "$_selectedPlayerToFire was a killer!",
+                            );
+                          } else {
+                            friendscount--;
+                            Warning.showWarningDialog(
+                              context,
+                              "$_selectedPlayerToFire كان صديق!!",
+                              "$_selectedPlayerToFire was a friend!",
+                            );
+                          }
+                          widget.players.remove(_selectedPlayerToFire!);
+                          _selectedPlayerToFire = null;
+                          _checkGameOver();
+                          startTimer();
+                        });
                       }
-                      widget.players.remove(_selectedPlayerToFire!);
-                      _selectedPlayerToFire = null;
+                      Navigator.pop(context);
                       _checkGameOver();
-                      startTimer();
-                    });
-                  }
-                  Navigator.pop(context);
-                  _checkGameOver();
-                },
-                child: Text(lang == "ar" ? "حسناً" : "OK"),
-              ),
-            ],
+                    },
+                    child: Text(
+                      lang == "ar" ? "حسناً" : "OK",
+                      style: TextStyle(color: Colors.green, fontSize: 30),
+                    ),
+                  ),
+                ],
+              );
+            },
           ),
     );
   }
@@ -213,90 +256,106 @@ class _GameState extends State<Game> {
       barrierDismissible: false,
       context: context,
       builder:
-          (context) => AlertDialog(
-            title: Column(
-              children: [
-                Image.asset("assets/images/body.jpeg"),
-                Text(lang == "ar" ? "من الميت" : "Who died?"),
-              ],
-            ),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(lang == "ar" ? "اختر الجثة" : "Select the body:"),
-                const SizedBox(height: 20),
-                DropdownButton<String>(
-                  value: _selectedBody,
-                  items:
-                      widget.players.map((String player) {
-                        return DropdownMenuItem<String>(
-                          value: player,
-                          child: Text(player),
-                        );
-                      }).toList(),
-
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      _selectedBody = newValue;
-                    });
-                  },
-
-                  hint: Text(_selectedBody ?? "Select player"),
+          (context) => StatefulBuilder(
+            builder: (BuildContext context, StateSetter setState) {
+              return AlertDialog(
+                backgroundColor: Colors.black,
+                title: Column(
+                  children: [
+                    Image.asset("assets/images/body.jpeg"),
+                    Text(
+                      lang == "ar" ? "من الميت" : "Who died?",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-            actions: [
-              TextButton(
-                onPressed: () async {
-                  if (widget.killers.contains(_selectedBody)) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(
-                          lang == "ar"
-                              ? "كيف؟ لا يمكن ان يُقتل القاتل"
-                              : "How? the killer was killed!",
-                          style: const TextStyle(fontSize: 20),
-                        ),
-                      ),
-                    );
-                    startTimer();
-                  } else if (_selectedBody != null) {
-                    await player.setAsset("assets/audios/body.mp3");
-                    player.play();
-                    print("body");
-                    setState(() async {
-                      Navigator.pop(context);
-                      widget.friends.remove(_selectedBody!);
-                      widget.players.remove(_selectedBody!);
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(
-                            lang == "ar"
-                                ? "$_selectedBody لقد قتل"
-                                : "$_selectedBody was killed!",
-                            style: const TextStyle(fontSize: 20),
-                          ),
-                        ),
-                      );
-                      _selectedBody = null;
-                      await Future.delayed(Duration(seconds: 2));
+                content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      lang == "ar" ? "اختر الجثة" : "Select the body:",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    const SizedBox(height: 20),
+                    DropdownButton<String>(
+                      dropdownColor: Colors.black,
+                      value: _selectedBody,
+                      items:
+                          widget.players.map((String player) {
+                            return DropdownMenuItem<String>(
+                              value: player,
+                              child: Text(
+                                player,
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            );
+                          }).toList(),
 
-                      _callEmergencyMeeting();
-                    });
-                  }
-                  _checkGameOver();
-                },
-                child: Text(lang == "ar" ? "حسناً" : "OK"),
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                  startTimer();
-                  _checkGameOver();
-                },
-                child: Text(lang == "ar" ? "الغاء" : "Cancel"),
-              ),
-            ],
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          _selectedBody = newValue;
+                        });
+                      },
+
+                      hint: Text(
+                        _selectedBody ?? "Select player",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ],
+                ),
+                actions: [
+                  TextButton(
+                    onPressed: () async {
+                      if (widget.killers.contains(_selectedBody)) {
+                        Navigator.pop(context);
+                        Warning.showWarningDialog(
+                          context,
+                          "كيف؟ لا يمكن ان يُقتل القاتل",
+                          "How? the killer was killed!",
+                        );
+
+                        startTimer();
+                        return;
+                      } else if (_selectedBody != null) {
+                        await player.setAsset("assets/audios/body.mp3");
+                        player.play();
+                        print("body");
+                        setState(() async {
+                          Navigator.pop(context);
+                          friendscount--;
+                          widget.players.remove(_selectedBody!);
+                          Warning.showWarningDialog(
+                            context,
+                            "$_selectedBody لقد قتل",
+                            "$_selectedBody was killed!",
+                            () async {
+                              _selectedBody = null;
+
+                              _callEmergencyMeeting();
+                            },
+                          );
+                        });
+                      }
+                      _checkGameOver();
+                    },
+                    child: Text(lang == "ar" ? "حسناً" : "OK",
+                        style: TextStyle(color: Colors.green, fontSize: 30)),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      startTimer();
+                      _checkGameOver();
+                    },
+                    child: Text(
+                      lang == "ar" ? "الغاء" : "Cancel",
+                      style: TextStyle(color: Colors.red, fontSize: 30),
+                    ),
+                  ),
+                ],
+              );
+            },
           ),
     );
   }
@@ -306,7 +365,7 @@ class _GameState extends State<Game> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.pushReplacementNamed(context, "/home");
+          CustomRoute.pushReplacement(context, const Home(),transition: TransitionType.rotation);
         },
         child: const Icon(Icons.home),
       ),
@@ -321,8 +380,8 @@ class _GameState extends State<Game> {
               const SizedBox(height: 20),
               Text(
                 lang == "ar"
-                    ? "المجرمين: ${widget.killers.length}"
-                    : "Killers: ${widget.killers.length}",
+                    ? "المجرمين: ${killerscount}"
+                    : "Killers: ${killerscount}",
                 style: const TextStyle(
                   fontSize: 30,
                   color: Colors.red,
@@ -333,8 +392,8 @@ class _GameState extends State<Game> {
               const SizedBox(height: 20),
               Text(
                 lang == "ar"
-                    ? "الأصدقاء: ${widget.friends.length}"
-                    : "Friends: ${widget.friends.length}",
+                    ? "الأصدقاء: ${friendscount}"
+                    : "Friends: ${friendscount}",
                 style: const TextStyle(
                   fontSize: 30,
                   color: Colors.green,

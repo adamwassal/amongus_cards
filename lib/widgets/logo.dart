@@ -6,7 +6,7 @@ class Logo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(100),
+      padding: EdgeInsets.all(30),
       child: Image.asset('assets/images/logo.png'),
     );
   }

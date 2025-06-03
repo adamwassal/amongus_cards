@@ -1,3 +1,5 @@
+import 'package:amongus_cards/functions/route.dart';
+import 'package:amongus_cards/screens/home.dart';
 import 'package:amongus_cards/widgets/bg.dart';
 import 'package:amongus_cards/widgets/btn.dart';
 import 'package:amongus_cards/widgets/logo.dart';
@@ -38,63 +40,53 @@ class _RulesState extends State<Rules> {
       body: StarryBackground(
         starCount: 200,
         child: Center(
-          child: Column(
-            children: [
-              Logo(),
-              Text(
-                lang == "ar" ? "القواعد" : "Rules",
-                style: TextStyle(
-                  fontSize: 50,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: "Fredoka",
-                  color: Colors.white,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Logo(),
+                Text(
+                  lang == "ar" ? "القواعد" : "Rules",
+                  style: TextStyle(
+                    fontSize: 50,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: "Fredoka",
+                    color: Colors.white,
+                  ),
                 ),
-              ),
-              Text(
-                lang == "ar"
-                    ? "-عدم التحدث دون لضغط علي الزر"
-                    : "-No belief without pressing the button",
-
-                style: TextStyle(fontSize: 30, color: Colors.white),
-                textAlign: TextAlign.center,
-              ),
-              Text(
-                lang == "ar"
-                    ? "-عدم الشك في اي شخص دون دليل"
-                    : "-Do not suspect anyone without evidence.",
-                style: TextStyle(fontSize: 30,color: Colors.white),
-                textAlign: TextAlign.center,
-              ),
-              Text(
-                lang == "ar"
-                    ? "-عدم فعل مهام ليست مقررة عليك"
-                    : "-Do not do tasks that are not assigned to you",
-                style: TextStyle(fontSize: 30,color: Colors.white),
-                textAlign: TextAlign.center,
-              ),
-              Text(
-                lang == "ar"
-                    ? "-عدم القتل اذ لم تكن انت المجرم"
-                    : "-Don't kill if you're not the criminal.",
-                style: TextStyle(fontSize: 30,color: Colors.white),
-                textAlign: TextAlign.center,
-              ),
-              Text(
-                lang == "ar"
-                    ? "-عدد المجرمين لا يزيد علي 3"
-                    : "-The number of criminals does not exceed 3.",
-                style: TextStyle(fontSize: 30,color: Colors.white),
-                textAlign: TextAlign.center,
-              ),
-
-              Btn(
-                text: lang == "ar" ? "رجوع" : "Back",
-                function: () {
-                  Navigator.pushReplacementNamed(context, '/home');
-                },
-                enabled: true,
-              ),
-            ],
+                Text(
+                  lang == "ar"
+                      ? "-عدم التحدث دون لضغط علي الزر"
+                      : "-No belief without pressing the button",
+            
+                  style: TextStyle(fontSize: 30, color: Colors.white),
+                  textAlign: TextAlign.center,
+                ),
+                Text(
+                  lang == "ar"
+                      ? "-عدم الشك في اي شخص دون دليل"
+                      : "-Do not suspect anyone without evidence.",
+                  style: TextStyle(fontSize: 30,color: Colors.white),
+                  textAlign: TextAlign.center,
+                ),
+                
+                Text(
+                  lang == "ar"
+                      ? "-عدم القتل اذ لم تكن انت المجرم"
+                      : "-Don't kill if you're not the criminal.",
+                  style: TextStyle(fontSize: 30,color: Colors.white),
+                  textAlign: TextAlign.center,
+                ),
+                
+            
+                Btn(
+                  text: lang == "ar" ? "رجوع" : "Back",
+                  function: () {
+                    CustomRoute.push(context, Home());
+                  },
+                  enabled: true,
+                ),
+              ],
+            ),
           ),
         ),
       ),

@@ -1,4 +1,5 @@
 import 'package:amongus_cards/functions/route.dart';
+import 'package:amongus_cards/functions/warning.dart';
 import 'package:amongus_cards/screens/multi/choose.dart';
 import 'package:amongus_cards/screens/rules.dart';
 import 'package:amongus_cards/screens/setting.dart';
@@ -45,60 +46,67 @@ class _HomeState extends State<Home> {
         child: Center(
           child: Stack(
             children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    children: [
-                      Logo(),
-                      Btn(
-                        text: lang == "ar" ? "بدء اللعبة" : "Start Game",
-                        function: () {
-                          CustomRoute.push(context, Start1());
-                        },
-                        enabled: true,
-                      ),
-
-                      Btn(
-                        text: lang == "ar" ? "لعب متعدد اونلاين(لن يجرب بعد)" : "Online Multiplayer (Beta)",
-                        function: () {
-                          CustomRoute.push(context, Choose());
-                        },
-                        enabled: true,
-                      ),
-                      Btn(
-                        text: lang == "ar" ? "القواعد" : "Rules",
-                        function: () {
-                          CustomRoute.push(context, Rules());
-                        },
-                        enabled: true,
-                      ),
-
-                      Btn(
-                        text: lang == "ar" ? "الإعدادات" : "Settings",
-                        function: () {
-                          CustomRoute.push(context, Settings());
-                        },
-                        enabled: true,
-                      ),
-                    ],
-                  ),
-                  Container(
-                    padding: EdgeInsets.only(bottom: 20),
-                    child: Column(
+              SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
                       children: [
-                        Text(
-                          "Developed By Adam Wael",
-                          style: TextStyle(color: Colors.white),
+                        Logo(),
+                        Btn(
+                          text: lang == "ar" ? "بدء اللعبة" : "Start Game",
+                          function: () {
+                            CustomRoute.pushReplacement(context, Start1(), transition: TransitionType.rotation);
+                          },
+                          enabled: true,
                         ),
-                        Text(
-                          "Version 1.0.0",
-                          style: TextStyle(color: Colors.white),
+                
+                        Btn(
+                          text: lang == "ar" ? "لعب متعدد اونلاين(لن يجرب بعد)" : "Online Multiplayer (Beta)",
+                          function: () {
+                            // CustomRoute.push(context, Choose());
+                            Warning.showWarningDialog(
+                              context,
+                              "هذه الميزة لم يتم تجربتها بعد",
+                              "This feature has not been tested yet",
+                            );
+                          },
+                          enabled: true,
+                        ),
+                        Btn(
+                          text: lang == "ar" ? "القواعد" : "Rules",
+                          function: () {
+                            CustomRoute.pushReplacement(context, Rules(), transition: TransitionType.scale);
+                          },
+                          enabled: true,
+                        ),
+                
+                        Btn(
+                          text: lang == "ar" ? "الإعدادات" : "Settings",
+                          function: () {
+                            CustomRoute.pushReplacement(context, Settings(), transition: TransitionType.scale);
+                          },
+                          enabled: true,
                         ),
                       ],
                     ),
-                  ),
-                ],
+                    Container(
+                      padding: EdgeInsets.only(bottom: 20),
+                      child: Column(
+                        children: [
+                          Text(
+                            "Developed By Adam Wael",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          Text(
+                            "Version 1.3.0",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),

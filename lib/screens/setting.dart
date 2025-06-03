@@ -1,3 +1,5 @@
+import 'package:amongus_cards/functions/route.dart';
+import 'package:amongus_cards/screens/home.dart';
 import 'package:amongus_cards/widgets/bg.dart';
 import 'package:amongus_cards/widgets/btn.dart';
 import 'package:amongus_cards/widgets/logo.dart';
@@ -73,7 +75,7 @@ class _SettingsState extends State<Settings> {
               Btn(
                 text: lang == "ar" ? "رجوع" : "Back",
                 function: () {
-                  Navigator.pushReplacementNamed(context, '/home');
+                  CustomRoute.push(context, Home());
                 },
                 enabled: true,
               ),

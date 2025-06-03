@@ -1,10 +1,15 @@
+import 'package:amongus_cards/functions/route.dart';
+import 'package:amongus_cards/screens/home.dart';
+import 'package:amongus_cards/screens/local/turns.dart';
 import 'package:amongus_cards/widgets/bg.dart';
 import 'package:amongus_cards/widgets/btn.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class Win extends StatefulWidget {
-  const Win({super.key});
+  const Win({super.key, this.players, this.killerscount});
+  final List<String>? players;
+  final int? killerscount;
 
   @override
   State<Win> createState() => _WinState();
@@ -41,12 +46,23 @@ class _WinState extends State<Win> {
                 lang == "ar" ? "ياي! نحن الفائزون" : 'yay! We are winners!',
                 style: TextStyle(fontSize: 32,color: Colors.white),
               ),
+
               const SizedBox(height: 20),
+              Btn(
+                text:
+                    lang == "ar" ? "إعاده اللعب" : "Replay",
+                function: () {
+                  List<String> players = widget.players!;
+                  players.shuffle();
+                  CustomRoute.push(context, Turns(players: players, countkillers:widget.killerscount ));
+                },
+                enabled: true,
+              ),
               Btn(
                 text:
                     lang == "ar" ? "الرجوع الي الشاشة الرئيسة" : "Back to Home",
                 function: () {
-                  Navigator.pushReplacementNamed(context, "/home");
+                  CustomRoute.push(context, Home());
                 },
                 enabled: true,
               ),

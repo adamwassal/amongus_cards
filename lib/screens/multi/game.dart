@@ -96,35 +96,37 @@ class _GameScreenState extends State<GameScreen> {
       backgroundColor: bgColor,
       body: Center(
         child: isAlive
-            ? Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "You are a $role",
-                    style: const TextStyle(fontSize: 28, color: Colors.white),
-                  ),
-                  const SizedBox(height: 20),
-                  const Text(
-                    "Game started!",
-                    style: TextStyle(fontSize: 22, color: Colors.white70),
-                  ),
-                  const SizedBox(height: 40),
-                  const Text(
-                    "Other players:",
-                    style: TextStyle(fontSize: 18, color: Colors.white),
-                  ),
-                  const SizedBox(height: 10),
-                  ...players.map(
-                    (p) => Text(
-                      p,
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: p == widget.player ? Colors.yellow : Colors.white,
+            ? SingleChildScrollView(
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "You are a $role",
+                      style: const TextStyle(fontSize: 28, color: Colors.white),
+                    ),
+                    const SizedBox(height: 20),
+                    const Text(
+                      "Game started!",
+                      style: TextStyle(fontSize: 22, color: Colors.white70),
+                    ),
+                    const SizedBox(height: 40),
+                    const Text(
+                      "Other players:",
+                      style: TextStyle(fontSize: 18, color: Colors.white),
+                    ),
+                    const SizedBox(height: 10),
+                    ...players.map(
+                      (p) => Text(
+                        p,
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: p == widget.player ? Colors.yellow : Colors.white,
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              )
+                  ],
+                ),
+            )
             : const Text(
                 "You are eliminated!",
                 style: TextStyle(fontSize: 28, color: Colors.white),
