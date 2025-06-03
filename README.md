@@ -22,13 +22,11 @@ After that, enter all the **player names**.
 <br>
 
 and give the mobile to the person with the name that appears on the screen. This person clicks on "Show Information," clicks "OK" and then clicks "Next" Then, he or she knows who he is and clicks "Next." He or she gives the phone to the person after him, and so on
-
 <br>
 ![Screenshot from 2025-06-03 17-48-11](https://github.com/user-attachments/assets/d205e562-a11f-43a4-9803-41c4da77f89b)
 <br>
 
 Finally, the game starts.
-
 <br>
 ![Screenshot from 2025-06-03 17-49-07](https://github.com/user-attachments/assets/c5570295-57c9-4947-b491-48c02a795a8f)
 <br>
