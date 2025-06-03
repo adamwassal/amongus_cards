@@ -27,7 +27,8 @@ and give the mobile to the person with the name that appears on the screen. This
 ![Screenshot from 2025-06-03 17-48-11](https://github.com/user-attachments/assets/d205e562-a11f-43a4-9803-41c4da77f89b)
 <br>
 
-Finally, the game starts, 
+Finally, the game starts.
+
 <br>
 ![Screenshot from 2025-06-03 17-49-07](https://github.com/user-attachments/assets/c5570295-57c9-4947-b491-48c02a795a8f)
 <br>
