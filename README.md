@@ -1,54 +1,65 @@
-# amongus_cards
+# 🎮 Among Us Cards Game
 
-# Game Instructions
-English: The first thing you'll need to do is open the app and you'll find the **Home screen**.
-<br>
-عربي: اول حاجة هتفتح التطبيق ستجد الشاشة **الرئيسة**
-<br>
-![Screenshot from 2025-06-03 17-46-48](https://github.com/user-attachments/assets/3ea5d90d-9b34-4624-b2ff-f695f5343ace)
-<br>
+Welcome to the **Among Us Cards Game** – a real-life twist on the classic *Among Us* experience! 🔪🚀  
+This app helps you manage roles and game flow effortlessly.  
 
-English: After that, you can change the language (Arabic or English) from **Settings screen**.
-<br>
-عربي: بعد ذلك يمكنك تغيير اللغة (عربي و انجليزي) من **شاشة الإعدادات**
-<br>
-![Screenshot from 2025-06-03 17-47-03](https://github.com/user-attachments/assets/67e07e78-69ca-47c4-a1e2-372cf844796f)
-<br>
+---
 
-English: click on "Start Game", and specify the number of each **(total number of players and number of killers)**, Click on "Next".
-<br>
-عربي: و تحدد عدد كل من **(عدد اللاعبيىن الكلي و عدد القاتلين)** و تضغط على التالي
-<br>
-![Screenshot from 2025-06-03 17-47-27](https://github.com/user-attachments/assets/3c45fdc7-d39f-487d-9187-b71bbdd6286e)
-<br>
+## 📲 Getting Started
 
-English: After that, enter all the **player names**.
-<br>
-عربي: و بعد ذلك أدخل كل **أسماء اللاعبين**
-<br>
-![Screenshot from 2025-06-03 17-47-57](https://github.com/user-attachments/assets/dcca6f35-6e3a-4a08-a6cb-14810d59b586)
-<br>
+### 🏠 Home Screen  
+- **English**: Open the app, and you'll find the **Home screen**.  
+- **عربي**: أول حاجة هتفتح التطبيق ستجد الشاشة **الرئيسة**  
+![Home Screen](https://github.com/user-attachments/assets/3ea5d90d-9b34-4624-b2ff-f695f5343ace)
 
-English: and give the mobile to the person with the name that appears on the screen. This person clicks on "Show Information," clicks "OK" and then clicks "Next" Then, he or she knows who he is and clicks "Next." He or she gives the phone to the person after him, and so on.
-<br>
-عربي: و تعطي الموبايل للشخص الذي يحمل الإسم الذي ظهر على الشاشة و هذا الشخص يظغط على "عرض المعلومات", و يضغط "تم" بعد امما يعرف هو ايه و يضغط التالي و يعطي للي بعده و هكذا
-<br>
-![Screenshot from 2025-06-03 17-48-11](https://github.com/user-attachments/assets/d205e562-a11f-43a4-9803-41c4da77f89b)
-<br>
+---
 
-English: Finally, **the game starts**.
-<br>
-عربي: و في الآخر **تبدأ اللعبة**
-<br>
-![Screenshot from 2025-06-03 17-49-07](https://github.com/user-attachments/assets/c5570295-57c9-4947-b491-48c02a795a8f)
-<br>
+### 🌐 Language Settings  
+- **English**: You can change the language (Arabic or English) from the **Settings screen**.  
+- **عربي**: يمكنك تغيير اللغة (عربي و انجليزي) من **شاشة الإعدادات**  
+![Settings Screen](https://github.com/user-attachments/assets/67e07e78-69ca-47c4-a1e2-372cf844796f)
 
-English: and there are emergencies and a corpse. That's it, and you play as if you were really playing Among Us, but in reality.
-<br>
-عربي: و فيه طوارئ و جثة, بس كده و تلعب كأنك بتلعب امونج أس بجد ولكن على الحقيقة
-<br>
-![Screenshot from 2025-06-03 17-49-23](https://github.com/user-attachments/assets/ce9c7f86-3d0b-4bbd-a080-03e8a258e3a9)
-<br>
+---
 
+## 🕹️ Start a Game
 
-**ENJOY**
+### 1️⃣ Select Players  
+- **English**: Click on "Start Game", then specify the **total number of players and number of killers**.  
+- **عربي**: اضغط على "بدء اللعبة"، ثم حدد **عدد اللاعبين الكلي وعدد القتلة**  
+![Player Setup](https://github.com/user-attachments/assets/3c45fdc7-d39f-487d-9187-b71bbdd6286e)
+
+---
+
+### 2️⃣ Enter Player Names  
+- **English**: Enter all **player names**.  
+- **عربي**: أدخل كل **أسماء اللاعبين**  
+![Enter Names](https://github.com/user-attachments/assets/dcca6f35-6e3a-4a08-a6cb-14810d59b586)
+
+---
+
+### 3️⃣ Assign Roles  
+- **English**: Give the phone to the player whose name appears on screen. That player clicks **"Show Information"**, then clicks **"OK"**, learns their role, clicks **"Next"**, and hands the phone to the next player.  
+- **عربي**: اعطي الموبايل للشخص اللي اسمه ظهر على الشاشة، يضغط على **"عرض المعلومات"**، بعدين **"تم"**، يعرف هو مين، وبعدين **"التالي"**، ويسلمه للي بعده.  
+![Show Info](https://github.com/user-attachments/assets/d205e562-a11f-43a4-9803-41c4da77f89b)
+
+---
+
+## 🧠 Game Time!
+
+- **English**: Finally, the **game begins**!  
+- **عربي**: وأخيرًا، **تبدأ اللعبة!**  
+![Game Start](https://github.com/user-attachments/assets/c5570295-57c9-4947-b491-48c02a795a8f)
+
+---
+
+## 🚨 In-Game Events  
+- **English**: There are **emergencies** and **dead bodies**. Just like Among Us, but in real life!  
+- **عربي**: هيكون فيه **طوارئ** و **جثث**، كأنك بتلعب *Among Us* بجد، بس على الحقيقة.  
+![Game Events](https://github.com/user-attachments/assets/ce9c7f86-3d0b-4bbd-a080-03e8a258e3a9)
+
+---
+
+## 🎉 Have Fun!
+> **ENJOY THE GAME** – And may the best Crewmate or Impostor win!  
+>  
+> **استمتع باللعبة** – وخلّي بالك من القاتل!
